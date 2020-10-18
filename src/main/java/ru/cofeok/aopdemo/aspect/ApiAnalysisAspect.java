@@ -15,7 +15,7 @@ import static ru.cofeok.aopdemo.aspect.LoggingAspect.CreateLogOutput;
 @Order(2)
 public class ApiAnalysisAspect {
 
-    @Pointcut("execution(public * addAccount(..))")
+    @Pointcut("execution(public * addAccount(boolean))")
     private void forDaoAdding() {
     }
 
