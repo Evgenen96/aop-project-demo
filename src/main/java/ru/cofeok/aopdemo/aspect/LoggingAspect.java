@@ -34,14 +34,23 @@ public class LoggingAspect {
             throwing = "exception")
     public void throwingUpdateAccountAdvice(JoinPoint theJoinPoint, Throwable exception) {
         myLogger.info(CreateLogOutput(">>> LOG: Executing @AfterThrowing advice for updateAccount()"));
-        myLogger.info(CreateLogOutput("   >>> " + exception.toString()));
+        myLogger.warning(CreateLogOutput("   >>> " + exception.toString()));
     }
 
     @Around("execution(public * ru.cofeok.aopdemo.dao.AccountDAO.removeAccount(*))")
     public boolean aroundRemoveAccountAdvice(ProceedingJoinPoint theProceedingJoinPoint) throws Throwable {
         myLogger.info(CreateLogOutput(">>> LOG: Executing @AroundThrowing advice for removeAccount()"));
         long begin = System.currentTimeMillis();
-        boolean b = (Boolean) theProceedingJoinPoint.proceed();
+        boolean b;
+        try {
+            b = (Boolean) theProceedingJoinPoint.proceed();
+        } catch (Exception exc) {
+            myLogger.warning("@Around advice: handling an exception expect of main program");
+            // use default value for returning default or rethrow the exception
+            b = false;
+            // rethrow exception
+            // throw exc;
+        }
         long end = System.currentTimeMillis();
         long duration = end - begin;
         myLogger.info(CreateLogOutput("   >>> Duration: " + duration / 1000.0 + "seconds "));

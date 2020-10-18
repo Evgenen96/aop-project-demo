@@ -33,11 +33,13 @@ public class AccountDAO {
 
     public boolean removeAccount(Account account) {
         myLogger.info(getClass() + ": DOING MY DB WORK: REMOVE ACCOUNT");
+
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return true;
+        throw new RuntimeException();
+       // return true;
     }
 }
