@@ -18,7 +18,7 @@ public class MainApp {
         theAccountDAO.addAccount();
         theAccountDAO.getAccount();
         theAccountDAO.updateAccount();
-        theMembershipDAO.addAccount();
+        theMembershipDAO.addAccount(true);
         context.close();
 
     }
