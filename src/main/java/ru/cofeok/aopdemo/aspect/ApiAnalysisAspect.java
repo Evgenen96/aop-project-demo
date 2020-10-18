@@ -8,6 +8,8 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import java.util.logging.Logger;
+
 import static ru.cofeok.aopdemo.aspect.LoggingAspect.CreateLogOutput;
 
 @Aspect
@@ -15,22 +17,25 @@ import static ru.cofeok.aopdemo.aspect.LoggingAspect.CreateLogOutput;
 @Order(2)
 public class ApiAnalysisAspect {
 
+    private Logger myLogger =
+            Logger.getLogger(getClass().getName());
+
     @Pointcut("execution(public * addAccount(boolean))")
     private void forDaoAdding() {
     }
 
     @Before("forDaoAdding()")
     public void performApiAnalytics(JoinPoint theJoinPoint) {
-        System.out.println(CreateLogOutput(">>> INFO: Performing some API analytics"));
+        myLogger.info(CreateLogOutput(">>> INFO: Performing some API analytics"));
 
         // display the method signature
         MethodSignature methodSig = (MethodSignature) theJoinPoint.getSignature();
-        System.out.println("   >>> MethodSignature: " + methodSig);
+        myLogger.info("   >>> MethodSignature: " + methodSig);
 
         // display the method args
         Object[] args = theJoinPoint.getArgs();
         for (Object obj : args) {
-            System.out.println("   >>> " + obj);
+            myLogger.info("   >>> " + obj);
         }
 
     }

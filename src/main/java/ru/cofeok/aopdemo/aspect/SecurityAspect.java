@@ -6,12 +6,17 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import java.util.logging.Logger;
+
 import static ru.cofeok.aopdemo.aspect.LoggingAspect.CreateLogOutput;
 
 @Aspect
 @Component
 @Order(0)
 public class SecurityAspect {
+
+    private Logger myLogger =
+            Logger.getLogger(getClass().getName());
 
     // next two are for combining
     @Pointcut("execution(public * ru.cofeok.aopdemo.dao.*.*(..))")
@@ -25,6 +30,6 @@ public class SecurityAspect {
     // combining pointcuts
     @Before("forDaoPackage() && !forDaoUpdate()")
     public void securityCheck() {
-        System.out.println(CreateLogOutput(">>> SEC: Making some security checks"));
+        myLogger.info(CreateLogOutput(">>> SEC: Making some security checks"));
     }
 }
