@@ -7,4 +7,12 @@ public class AccountDAO {
     public void addAccount() {
         System.out.println(getClass() + ": DOING MY DB WORK: ADDING ACCOUNT");
     }
+
+    public void getAccount() {
+        System.out.println(getClass() + ": DOING MY DB WORK: RETRIEVING ACCOUNT");
+    }
+
+    public void updateAccount() {
+        System.out.println(getClass() + ": DOING MY DB WORK: UPDATE ACCOUNT");
+    }
 }
